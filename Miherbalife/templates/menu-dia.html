@@ -1,0 +1,322 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú del Día - Local</title>
+
+    <!-- Bootstrap CSS -->
+     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'img/carrusel/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .product-card { transition: transform 0.2s ease-in-out; }
+        .product-card:hover { transform: translateY(-5px); }
+    </style>
+
+</head>
+<body>
+
+   
+   <!-- Top Bar -->
+    <div class="hn-top-bar">
+      <div class="hn-top-inner container d-flex justify-content-between align-items-center">
+        
+        <!-- Contenedor izquierdo: Logo + Nombre y Rol -->
+        <div class="d-flex align-items-center gap-3">
+            <a class="navbar-brand d-inline-block align-middle m-0" href="{% url 'catalogo' %}">
+                <img src="{% static 'logo.png' %}"
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="45"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            <div class="hn-tb-name">
+                <strong>Patricia Aguilar Valenzuela</strong>
+                <span class="hn-tb-role text-muted">· Distribuidor Independiente Herbalife</span>
+            </div>
+        </div>
+        
+        <!-- Botones del lado derecho (Asesoría e Iniciar Sesión) -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20asesoría%20sobre%20los%20productos" class="hn-btn-wsp" target="_blank" rel="noopener noreferrer" aria-label="Asesoría sin costo por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+                </svg>
+                <span class="hn-wsp-txt">Asesoría</span>
+            </a>
+            
+        </div>
+
+      </div>
+    </div>
+        
+    <!-- Navbar Oficial Bootstrap 5 -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded shadow-sm px-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-inline-block align-middle" href="{% url 'catalogo' %}">
+                <img src="{% static 'LOGO.webp' %}" 
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="100"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <!-- 1. PRODUCTOS -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'catalogo' %}#seccion-productos"><strong>Todos los Productos</strong></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            {% for cat in categorias %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categoria_productos' cat.slug %}#seccion-productos">
+                                        {{ cat.nombre }}
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li><span class="dropdown-item text-muted">No hay categorías registradas</span></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+            
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'catalogo' %}#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'catalogo' %}#Beneficios">Información y Beneficios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="btn-reto">Reto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'negocio' %}">Negocio</a>
+                    </li>
+                </ul>
+
+                <!------------------------------------------ BUSCADOR ----------------------------------------------------------------->
+                <div class="d-flex align-items-center gap-2">
+                    
+
+                    <form method="GET" action="{% url 'catalogo' %}#seccion-productos" class="d-flex" role="search" style="max-width: 300px; width: 100%;">  
+                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar producto..." value="{{ request.GET.q }}">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ventana del Mensaje Emergente (Modal Reto) -->
+    <div id="modal-mensaje" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center;">
+      <div class="modal-content bg-white p-4 rounded shadow text-center" style="max-width:400px; position:relative;">
+        <span class="btn-cerrar" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem;">&times;</span>
+        <div class="modal-icon fs-1">🥗</div>
+        <h3 class="fw-bold text-success mt-2">¡Únete a nuestro gran reto!</h3>
+        <p class="text-muted">Únete a nuestro gran reto de peso saludable. Pide más información en el botón de WhatsApp o en el apartado de contacto.</p>
+        <div class="modal-actions mt-3">
+          <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20el%20reto%20de%20peso%20saludable" 
+             target="_blank" 
+             class="btn btn-success w-100">
+             Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  
+
+
+    <!---------------------------------- Contenido del Menú del Día -------------------------------------------------------------------------------------------------------->
+       <div id="seccion-menu-estatico" class="container my-5 pt-4 border-top" style="font-family: 'Segoe UI', Arial, sans-serif;">
+     <div class="text-center mb-4">
+        <h2 class="fw-bold text-success">
+            Menú del Día en el Local
+        </h2>
+        <p class="text-muted">Preparaciones frescas listas para consumir hoy.</p>
+     </div>
+     
+
+
+        <div class="row g-4">
+            {% for item in menu_local %}
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 menu-card">
+                        {% if item.imagen %}
+                            <img src="{{ item.imagen.url }}" class="card-img-top" alt="{{ item.nombre }}" style="height: 230px; object-fit: cover;">
+                        {% endif %}
+                        
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold text-dark">{{ item.nombre }}</h5>
+                            <p class="card-text text-muted">{{ item.descripcion }}</p>
+                            
+                            <div class="mt-auto d-flex justify-content-between align-items-center pt-2">
+                                <span class="badge bg-success fs-6">Disponible</span>
+                                <span class="fw-bold text-success fs-5">${{ item.precio }}</span>
+                            </div>
+                            
+                            <form action="{% url 'agregar_al_carrito' 'menu' item.id %}" method="POST" class="mt-3 ajax-carrito-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="bi bi-cart-plus"></i> Añadir al carrito
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center text-muted py-4">
+                    <p>No hay preparaciones publicadas para el día de hoy.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+      
+
+
+
+        <!-- Botón para volver a la tienda -->
+        <div class="text-center mt-5">
+            <a href="{% url 'catalogo' %}" class="text-decoration-symbol text-muted">&larr; Volver a la tienda online</a>
+        </div>
+    </div>
+
+ <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/526647670709?text=Hola,%20necesito%20información" 
+       style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: #25d366; color: white; border-radius: 50px; padding: 12px 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px;" 
+       target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-whatsapp fs-5"></i> Escríbeme
+    </a>
+    <a href="{% url 'ver_carrito' %}" 
+   style="position: fixed; bottom: 85px; right: 20px; z-index: 1000; background-color: #ffffff; color: #198754; border: 2px solid #198754; border-radius: 50px; padding: 12px 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;" 
+   onmouseover="this.style.backgroundColor='#198754'; this.style.color='#ffffff';" 
+   onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#198754';">
+    
+    <div style="position: relative; display: flex; align-items: center;">
+        <i class="bi bi-cart3 fs-5"></i>
+        
+        <!-- Insignia del contador flotante (siempre presente en el DOM) -->
+        <span class="carrito-contador-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+              style="font-size: 0.65rem; border: 2px solid white; {% if not cantidad_carrito or cantidad_carrito == 0 %}display: none;{% endif %}">
+            {{ cantidad_carrito|default:0 }}
+        </span>
+    </div>
+    
+    <span>Carrito</span>
+   </a>
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('form.ajax-carrito-form, form[action*="agregar_al_carrito"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const url = form.action;
+                const formData = new FormData(form);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 1. Feedback visual en el botón de la tarjeta/modal
+                        const btn = form.querySelector('button[type="submit"]');
+                        const originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="bi bi-check2"></i> ¡Añadido!';
+                        btn.classList.remove('btn-outline-success', 'btn-success');
+                        btn.classList.add('btn-success');
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.classList.remove('btn-success');
+                            btn.classList.add('btn-outline-success');
+                        }, 1500);
+
+                        // 2. Actualizar TODOS los contadores de carrito en pantalla (Navbar y Flotante)
+                        const contadores = document.querySelectorAll('.carrito-contador-badge');
+                        
+                        if (contadores.length > 0) {
+                            contadores.forEach(contador => {
+                                contador.textContent = data.cantidad_total;
+                                contador.style.display = 'inline-block';
+                            });
+                        } else {
+                            // Si el contador no existía (carrito iniciado en 0), recargamos para renderizar los badges
+                            location.reload();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al añadir al carrito:', error);
+                });
+            });
+        });
+    });
+</script>
+
+
+    <!-- Script del Modal Reto -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const btnReto = document.getElementById('btn-reto');
+          const modal = document.getElementById('modal-mensaje');
+          const btnCerrar = document.querySelector('.btn-cerrar');
+
+          if (btnReto && modal) {
+              btnReto.Navigator = 'click'; // safe check
+              btnReto.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+              });
+          }
+
+          const cerrarModal = () => {
+            if (modal) modal.style.display = 'none';
+          };
+
+          if (btnCerrar) {
+              btnCerrar.addEventListener('click', cerrarModal);
+          }
+
+          window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+              cerrarModal();
+            }
+          });
+        });
+    </script>
+    
+
+
+</body>
+</html>

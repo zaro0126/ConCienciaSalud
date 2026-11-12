@@ -1,0 +1,734 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if categoria_actual %}{{ categoria_actual.nombre }}{% else %}ConCienciaSalud{% endif %}</title>
+    
+    <!-- Bootstrap CSS 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'img/carrusel/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .product-card { transition: transform 0.2s ease-in-out; }
+        .product-card:hover { transform: translateY(-5px); }
+    </style>
+    
+</head>
+<body>
+
+   <!-- Top Bar -->
+    <div class="hn-top-bar">
+      <div class="hn-top-inner container d-flex justify-content-between align-items-center">
+        
+        <!-- Contenedor izquierdo: Logo + Nombre y Rol -->
+        <div class="d-flex align-items-center gap-3">
+            <a class="navbar-brand d-inline-block align-middle m-0" href="{% url 'catalogo' %}">
+                <img src="{% static 'logo.png' %}"
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="45"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            <div class="hn-tb-name">
+                <strong>Patricia Aguilar Valenzuela</strong>
+                <span class="hn-tb-role text-muted">· Distribuidor Independiente Herbalife</span>
+            </div>
+        </div>
+        
+        <!-- Botones del lado derecho (Asesoría e Iniciar Sesión) -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20asesoría%20sobre%20los%20productos" class="hn-btn-wsp" target="_blank" rel="noopener noreferrer" aria-label="Asesoría sin costo por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+                </svg>
+                <span class="hn-wsp-txt">Asesoría</span>
+            </a>
+            
+            <a href="{% url 'login' %}" class="btn btn-outline-success">
+                <i class="fas fa-user"></i> Iniciar Sesion
+            </a>
+        </div>
+
+      </div>
+    </div>
+        
+    <!-- Navbar Oficial Bootstrap 5 -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded shadow-sm px-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-inline-block align-middle" href="{% url 'catalogo' %}">
+                <img src="{% static 'LOGO.webp' %}" 
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="100"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <!-- 1. PRODUCTOS -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'catalogo' %}#seccion-productos"><strong>Todos los Productos</strong></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            {% for cat in categorias %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categoria_productos' cat.slug %}#seccion-productos">
+                                        {{ cat.nombre }}
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li><span class="dropdown-item text-muted">No hay categorías registradas</span></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'menuDia' %}">Menu del dia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Beneficios">Información y Beneficios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="btn-reto">Reto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'negocio' %}">Negocio</a>
+                    </li>
+                </ul>
+
+                <!------------------------------------------ BUSCADOR ----------------------------------------------------------------->
+                <div class="d-flex align-items-center gap-2">
+                    
+
+                    <form method="GET" action="{% url 'catalogo' %}#seccion-productos" class="d-flex" role="search" style="max-width: 300px; width: 100%;">  
+                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar producto..." value="{{ request.GET.q }}">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ventana del Mensaje Emergente (Modal Reto) -->
+    <div id="modal-mensaje" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center;">
+      <div class="modal-content bg-white p-4 rounded shadow text-center" style="max-width:400px; position:relative;">
+        <span class="btn-cerrar" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem;">&times;</span>
+        <div class="modal-icon fs-1">🥗</div>
+        <h3 class="fw-bold text-success mt-2">¡Únete a nuestro gran reto!</h3>
+        <p class="text-muted">Únete a nuestro gran reto de peso saludable. Pide más información en el botón de WhatsApp o en el apartado de contacto.</p>
+        <div class="modal-actions mt-3">
+          <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20el%20reto%20de%20peso%20saludable" 
+             target="_blank" 
+             class="btn btn-success w-100">
+             Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!----------------------------------------------------------FONDOVIDEO----------------------------------------------------->
+    <div class="hero-banner">
+        <!-- VIDEO DE YOUTUBE DE FONDO -->
+        <div class="video-background">
+        <video autoplay muted loop playsinline preload="auto" class="bg-video">
+        <source src="{% static 'H.mp4' %}" type="video/mp4">
+        
+      </video>
+    </div>
+
+        <!-- CAPA OSCURA -->
+        <div class="hero-overlay"></div>
+
+        <!-- CONTENIDO (TEXTO Y BOTONES) -->
+        <div class="hero-content">
+            <h1>Herbalife México: compra <span>productos originales</span> con asesoría personalizada</h1>
+            <p>Precios en pesos mexicanos, sin letra chica, y asesoría directa por WhatsApp en cada categoría en todo México, antes y después de tu compra.</p>
+            
+            <div class="hero-buttons">
+                <a href="{% url 'catalogo' %}#seccion-productos" class="btn btn-catalog">📂 Ver catálogo</a>
+                <a href="https://wa.me/526647670709" target="_blank" class="btn btn-whatsapp">💬 Escríbenos por WhatsApp</a>
+            </div>
+
+            <div class="hero-footer">
+                <img src="{% static 'Pato.jpeg' %}" alt="Patricia Aguilar">
+                <div>
+                    Por <strong>Patricia Aguilar</strong>, Distribuidora Independiente Herbalife<br>
+                    <a href="{% url 'cliente_preferente' %}">Paga menos en cada pedido como Cliente Preferente →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!---------------------------------------------------- CARRUSEL DINÁMICO -------------------------------------------------->
+ {% if carrusel_imagenes %}
+    <div class="container my-4">
+        
+        <!-- Botón de Pantalla Completa alineado a la derecha -->
+        <div class="d-flex justify-content-end mb-2">
+            <button class="btn btn-outline-success btn-sm shadow-sm" onclick="toggleFullScreen('carruselContainer')">
+                <i class="bi bi-arrows-fullscreen"></i>
+            </button>
+        </div>
+
+        <!-- Contenedor envuelto para que la Fullscreen API lo expanda completo -->
+        <div id="carruselContainer" class="bg-white p-3 rounded shadow-sm">
+            <div id="miCarrusel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
+                    {% for item in carrusel_imagenes %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="row justify-content-center g-3">
+                        {% endif %}
+
+                                    <div class="col-10 col-md-6 col-lg-4 text-center">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#carruselModal{{ item.id }}">
+                                            <img src="{{ item.imagen.url }}" class="img-fluid rounded shadow-sm carrusel-efecto" alt="{{ item.titulo|default:'Carrusel' }}">
+                                        </a>
+                                    </div>
+
+                                    <!-- Ventana Modal para ampliar esta imagen del carrusel -->
+                                    <div class="modal fade" id="carruselModal{{ item.id }}" tabindex="-1" aria-labelledby="carruselModalLabel{{ item.id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content bg-dark text-white border-0">
+                                                <div class="modal-header border-0 pb-0">
+                                                    <h5 class="modal-title fs-6 text-light" id="carruselModalLabel{{ item.id }}">{{ item.titulo|default:'Imagen de Carrusel' }}</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-center p-3">
+                                                    <img src="{{ item.imagen.url }}" class="img-fluid rounded shadow" alt="{{ item.titulo|default:'Carrusel Grande' }}" style="max-height: 85vh; object-fit: contain;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#miCarrusel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-success rounded-circle p-3 shadow" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#miCarrusel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-success rounded-circle p-3 shadow" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+{% endif %}
+        
+
+    <!------------------------------------------------ CATÁLOGO DE PRODUCTOS ------------------------------------------------->
+    <div class="container text-center mb-4">
+        <h2 class="fw-bold text-success" id="seccion-productos">
+            {% if categoria_actual %}
+                {{ categoria_actual.nombre }}
+            {% else %}
+                Catálogo de Productos
+            {% endif %}
+        </h2>
+        <p class="text-muted">Explora nuestra selección completa de nutrición y bienestar.</p>
+    </div>
+
+    <div class="container my-4">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            {% for producto in productos %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 product-card">
+                        {% if producto.imagen %}
+                            <!-- Imagen interactiva con enlace para abrir el modal de este producto -->
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#productoModal{{ producto.id }}">
+                                <img src="{{ producto.imagen.url }}" class="card-img-top p-3" alt="{{ producto.nombre }}" style="max-height: 220px; object-fit: contain; cursor: pointer;">
+                            </a>
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            {% if producto.categoria %}
+                                <span class="badge bg-light text-success border align-self-start mb-2">{{ producto.categoria.nombre }}</span>
+                            {% endif %}
+                            
+                            <h5 class="card-title fw-bold fs-6">{{ producto.nombre }}</h5>
+                            <p class="card-text text-muted small flex-grow-1">{{ producto.descripcion|truncatewords:12 }}</p>
+                            <h5 class="text-success fw-bold my-2">${{ producto.precio }} MXN</h5>
+                            
+                            <form action="{% url 'agregar_al_carrito' 'producto' producto.id %}" method="POST" class="mt-auto ajax-carrito-form">
+                                {% csrf_token %}
+                                {% if producto.sabores.all %}
+                                    <div class="mb-2 text-start">
+                                        <label class="form-label small fw-bold mb-1 text-secondary">Elige un sabor:</label>
+                                        <select name="sabor" class="form-select form-select-sm" required>
+                                            <option value="" selected disabled>-- Selecciona sabor --</option>
+                                            {% for sabor in producto.sabores.all %}
+                                                {% if sabor.disponible %}
+                                                    <option value="{{ sabor.nombre }}">{{ sabor.nombre }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% endif %}
+
+                                <button type="submit" class="btn btn-outline-success w-100">
+                                    <i class="bi bi-cart-plus"></i> Añadir al carrito
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VENTANA MODAL PARA CADA PRODUCTO (IMAGEN GRANDE + DESCRIPCIÓN COMPLETA) -->
+                <div class="modal fade" id="productoModal{{ producto.id }}" tabindex="-1" aria-labelledby="productoModalLabel{{ producto.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content bg-white text-dark border-0 shadow-lg">
+                            <div class="modal-header border-bottom">
+                                <h5 class="modal-title fw-bold text-success" id="productoModalLabel{{ producto.id }}">{{ producto.nombre }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <div class="row align-items-center g-4">
+                                    <!-- Columna de la Imagen Grande -->
+                                    <div class="col-md-6 text-center">
+                                        {% if producto.imagen %}
+                                            <img src="{{ producto.imagen.url }}" class="img-fluid rounded shadow-sm" alt="{{ producto.nombre }}" style="max-height: 350px; object-fit: contain;">
+                                        {% endif %}
+                                    </div>
+                                    <!-- Columna de la Información Completa y Descripción -->
+                                    <div class="col-md-6 text-start">
+                                        {% if producto.categoria %}
+                                            <span class="badge bg-success-subtle text-success border mb-2">{{ producto.categoria.nombre }}</span>
+                                        {% endif %}
+                                        <h4 class="fw-bold text-dark mb-3">${{ producto.precio }} MXN</h4>
+                                        <h6 class="fw-bold text-secondary">Descripción completa:</h6>
+                                        <p class="text-muted" style="white-space: pre-line; line-height: 1.6;">{{ producto.descripcion }}</p>
+
+                                        <!-- Formulario para agregar al carrito desde el modal -->
+                                        <form action="{% url 'agregar_al_carrito' 'producto' producto.id %}" method="POST" class="mt-4 ajax-carrito-form">
+                                            {% csrf_token %}
+                                            {% if producto.sabores.all %}
+                                                <div class="mb-3">
+                                                    <label class="form-label small fw-bold text-secondary">Elige un sabor:</label>
+                                                    <select name="sabor" class="form-select" required>
+                                                        <option value="" selected disabled>-- Selecciona sabor --</option>
+                                                        {% for sabor in producto.sabores.all %}
+                                                            {% if sabor.disponible %}
+                                                                <option value="{{ sabor.nombre }}">{{ sabor.nombre }}</option>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-success w-100 py-2">
+                                                <i class="bi bi-cart-plus"></i> Añadir al carrito
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi-box-seam display-1 text-muted"></i>
+                    <h4 class="mt-3 text-muted">No hay productos disponibles en esta categoría por el momento.</h4>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!------------------------------------------------ SECCIÓN DE BANNERS INFORMATIVOS ------------------------------------------------------------->
+    {% if banners_informativos %}
+    <!-- 1. Título y sección totalmente independientes y fuera del contenedor de pantalla completa -->
+    <section id="Beneficios" class="py-4 bg-success-subtle text-success mt-5">
+        <div class="container text-center">
+            <h3 class="fw-bold text-success m-0">Información y Beneficios</h3>
+        </div>
+    </section>
+
+    <!-- 2. Contenedor exclusivo para el carrusel y su botón de pantalla completa -->
+    <div class="container my-5">
+        
+        <!-- Botón discretamente alineado a la derecha, fuera del carrusel pero dentro de su contenedor -->
+        <div class="d-flex justify-content-end mb-2">
+            <button class="btn btn-outline-dark btn-sm shadow-sm bg-white" onclick="toggleFullScreen('carruselBannersContainer')" title="Pantalla Completa">
+                <i class="bi bi-arrows-fullscreen"></i>
+            </button>
+        </div>
+
+        <!-- Contenedor que se expandirá limpio (solo el carrusel) -->
+        <div id="carruselBannersContainer" class="p-3 rounded">
+            <div id="carruselBanners" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
+                    {% for banner in banners_informativos %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="row justify-content-center g-3">
+                        {% endif %}
+
+                                    <div class="col-10 col-md-6 col-lg-4 text-center">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#bannerModal{{ banner.id }}">
+                                            <img src="{{ banner.imagen.url }}" class="img-fluid rounded shadow-sm carrusel-efecto" alt="{{ banner.titulo|default:'Banner' }}">
+                                        </a>
+                                    </div>
+
+                        {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#carruselBanners" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-success rounded-circle p-3 shadow" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#carruselBanners" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-success rounded-circle p-3 shadow" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. MODALES FUERA DEL CARRUSEL (Garantiza fluidez y evita bloqueos de temporizador) -->
+    {% for banner in banners_informativos %}
+        <div class="modal fade" id="bannerModal{{ banner.id }}" tabindex="-1" aria-labelledby="bannerModalLabel{{ banner.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content bg-dark text-white border-0">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title fs-6 text-light" id="bannerModalLabel{{ banner.id }}">{{ banner.titulo|default:'Detalle de Imagen' }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center p-3">
+                        <img src="{{ banner.imagen.url }}" class="img-fluid rounded shadow" alt="{{ banner.titulo|default:'Banner Grande' }}" style="max-height: 80vh; object-fit: contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+    <!------------------------------------------------ SECCIÓN DE CONTACTO -------------------------------------------------->
+    <section id="contacto" class="py-5 bg-dark text-white mt-5">
+        <div class="container text-center">
+            <h2>Contacto</h2>
+            <p>¿Tienes dudas sobre nuestros productos Herbalife? ¡Escríbenos!</p>
+            <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20los%20productos." 
+               class="btn btn-success btn-lg mt-3" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Botón flotante de WhatsApp y carrito --------------------------------------------------------------------------------------------->
+    <a href="https://wa.me/526647670709?text=Hola,%20necesito%20información" 
+       style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: #25d366; color: white; border-radius: 50px; padding: 12px 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px;" 
+       target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-whatsapp fs-5"></i> Escríbeme
+    </a>
+     
+    <a href="{% url 'ver_carrito' %}" 
+   style="position: fixed; bottom: 85px; right: 20px; z-index: 1000; background-color: #ffffff; color: #198754; border: 2px solid #198754; border-radius: 50px; padding: 12px 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;" 
+   onmouseover="this.style.backgroundColor='#198754'; this.style.color='#ffffff';" 
+   onmouseout="this.style.backgroundColor='#ffffff'; this.style.color='#198754';">
+    
+    <div style="position: relative; display: flex; align-items: center;">
+        <i class="bi bi-cart3 fs-5"></i>
+        
+        <!-- Insignia del contador flotante (siempre presente en el DOM) -->
+        <span class="carrito-contador-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+              style="font-size: 0.65rem; border: 2px solid white; {% if not cantidad_carrito or cantidad_carrito == 0 %}display: none;{% endif %}">
+            {{ cantidad_carrito|default:0 }}
+        </span>
+    </div>
+    
+    <span>Carrito</span>
+   </a>
+   
+
+
+    <!-- Scripts JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Script del Carrito AJAX -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('form.ajax-carrito-form, form[action*="agregar_al_carrito"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const url = form.action;
+                const formData = new FormData(form);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 1. Feedback visual en el botón de la tarjeta/modal
+                        const btn = form.querySelector('button[type="submit"]');
+                        const originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="bi bi-check2"></i> ¡Añadido!';
+                        btn.classList.remove('btn-outline-success', 'btn-success');
+                        btn.classList.add('btn-success');
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.classList.remove('btn-success');
+                            btn.classList.add('btn-outline-success');
+                        }, 1500);
+
+                        // 2. Actualizar TODOS los contadores de carrito en pantalla (Navbar y Flotante)
+                        const contadores = document.querySelectorAll('.carrito-contador-badge');
+                        
+                        if (contadores.length > 0) {
+                            contadores.forEach(contador => {
+                                contador.textContent = data.cantidad_total;
+                                contador.style.display = 'inline-block';
+                            });
+                        } else {
+                            // Si el contador no existía (carrito iniciado en 0), recargamos para renderizar los badges
+                            location.reload();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al añadir al carrito:', error);
+                });
+            });
+        });
+    });
+</script>
+
+    <!-------------------------------------- Script del Modal Reto -------------------------------------------------------->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const btnReto = document.getElementById('btn-reto');
+          const modal = document.getElementById('modal-mensaje');
+          const btnCerrar = document.querySelector('.btn-cerrar');
+
+          if (btnReto && modal) {
+              btnReto.Navigator = 'click'; // safe check
+              btnReto.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+              });
+          }
+
+          const cerrarModal = () => {
+            if (modal) modal.style.display = 'none';
+          };
+
+          if (btnCerrar) {
+              btnCerrar.addEventListener('click', cerrarModal);
+          }
+
+          window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+              cerrarModal();
+            }
+          });
+        });
+    </script>
+    
+   <script>
+    function toggleFullScreen(containerId) {
+        let elem = document.getElementById(containerId);
+
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+            elem.classList.add("fullscreen-mode");
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            elem.classList.remove("fullscreen-mode");
+        }
+    }
+
+    // Detector universal: limpia cualquier fondo negro o clase activa al salir de pantalla completa (por tecla Esc o botón)
+    document.addEventListener("fullscreenchange", function () {
+        if (!document.fullscreenElement) {
+            // Remueve la clase de pantalla completa de cualquier elemento que la tenga
+            document.querySelectorAll(".fullscreen-mode").forEach(function(el) {
+                el.classList.remove("fullscreen-mode");
+            });
+        }
+    });
+
+    // Soporte adicional para navegadores antiguos (Safari / Webkit)
+    document.addEventListener("webkitfullscreenchange", function () {
+        if (!document.webkitFullscreenElement) {
+            document.querySelectorAll(".fullscreen-mode").forEach(function(el) {
+                el.classList.remove("fullscreen-mode");
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Estilos limpios y seguros para el modo pantalla completa */
+    .fullscreen-mode {
+        background-color: #111 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        padding: 40px !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 99999 !important;
+        box-sizing: border-box !important;
+    }
+    .fullscreen-mode .carousel {
+        width: 100% !important;
+    }
+    .fullscreen-mode img {
+        max-height: 75vh !important;
+        object-fit: contain !important;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecciona todos los formularios o botones que agregan productos al carrito
+        // (Asegúrate de que tus formularios tengan una clase o selector similar, por ejemplo .form-agregar-carrito)
+        document.querySelectorAll("form.form-agregar-carrito").forEach(form => {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault(); // Evita que la página se recargue por completo
+                
+                let formData = new FormData(this);
+                let actionUrl = this.action;
+
+                fetch(actionUrl, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Buscamos el contador del carrito
+                        let contador = document.getElementById("carrito-contador");
+                        
+                        if (contador) {
+                            // Si ya existía el badge, actualizamos su número
+                            contador.textContent = data.cantidad_total;
+                            contador.style.display = "inline-block";
+                        } else {
+                            // Si estaba en 0 y no existía el span, recargamos limpiamente o creamos el nodo
+                            location.reload(); 
+                        }
+                    }
+                })
+                .catch(error => console.error("Error al actualizar el carrito:", error));
+            });
+        });
+    });
+</script>
+
+<!-- Script del Carrito AJAX -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('form.ajax-carrito-form, form[action*="agregar_al_carrito"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const url = form.action;
+                const formData = new FormData(form);
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 1. Feedback visual en el botón de la tarjeta/modal
+                        const btn = form.querySelector('button[type="submit"]');
+                        const originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="bi bi-check2"></i> ¡Añadido!';
+                        btn.classList.remove('btn-outline-success', 'btn-success');
+                        btn.classList.add('btn-success');
+
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.classList.remove('btn-success');
+                            btn.classList.add('btn-outline-success');
+                        }, 1500);
+
+                        // 2. Actualizar TODOS los contadores de carrito en pantalla (Navbar y Flotante)
+                        const contadores = document.querySelectorAll('.carrito-contador-badge');
+                        
+                        if (contadores.length > 0) {
+                            contadores.forEach(contador => {
+                                contador.textContent = data.cantidad_total;
+                                contador.style.display = 'inline-block';
+                            });
+                        } else {
+                            // Si el contador no existía (carrito iniciado en 0), recargamos para renderizar los badges
+                            location.reload();
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al añadir al carrito:', error);
+                });
+            });
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

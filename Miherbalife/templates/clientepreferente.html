@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Preferente - Herbalife México</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'img/carrusel/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <style> 
+    .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    } 
+
+
+    .card:hover {
+    transform: translateY(-8px); /* Eleva el contenedor 8 píxeles hacia arriba */
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important; /* Acentúa la sombra para darle profundidad */
+    }
+    </style> 
+</head>
+<body class="bg-light">
+
+       <!-- Top Bar -->
+    <div class="hn-top-bar">
+      <div class="hn-top-inner container d-flex justify-content-between align-items-center">
+        
+        <!-- Contenedor izquierdo: Logo + Nombre y Rol -->
+        <div class="d-flex align-items-center gap-3">
+            <a class="navbar-brand d-inline-block align-middle m-0" href="{% url 'catalogo' %}">
+                <img src="{% static 'logo.png' %}"
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="45"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            <div class="hn-tb-name">
+                <strong>Patricia Aguilar Valenzuela</strong>
+                <span class="hn-tb-role text-muted">· Distribuidor Independiente Herbalife</span>
+            </div>
+        </div>
+        
+        <!-- Botones del lado derecho (Asesoría e Iniciar Sesión) -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20asesoría%20sobre%20los%20productos" class="hn-btn-wsp" target="_blank" rel="noopener noreferrer" aria-label="Asesoría sin costo por WhatsApp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+                </svg>
+                <span class="hn-wsp-txt">Asesoría</span>
+            </a>
+            
+            <a href="{% url 'login' %}" class="btn btn-outline-success">
+                <i class="fas fa-user"></i> Iniciar Sesion
+            </a>
+        </div>
+
+      </div>
+    </div>
+        
+    <!-- Navbar Oficial Bootstrap 5 -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded shadow-sm px-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-inline-block align-middle" href="{% url 'catalogo' %}">
+                <img src="{% static 'LOGO.webp' %}" 
+                     alt="Herbalife Distribuidor Independiente" 
+                     height="100"
+                     style="object-fit: contain; transition: opacity 0.2s ease-in-out;"
+                     onmouseover="this.style.opacity='0.85'" 
+                     onmouseout="this.style.opacity='1'">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <!-- 1. PRODUCTOS -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'catalogo' %}#seccion-productos"><strong>Todos los Productos</strong></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            {% for cat in categorias %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categoria_productos' cat.slug %}#seccion-productos">
+                                        {{ cat.nombre }}
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li><span class="dropdown-item text-muted">No hay categorías registradas</span></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'menuDia' %}">Menu del dia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#contacto">Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Beneficios">Información y Beneficios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="btn-reto">Reto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'negocio' %}">Negocio</a>
+                    </li>
+                </ul>
+
+                <!------------------------------------------ BUSCADOR ----------------------------------------------------------------->
+                <div class="d-flex align-items-center gap-2">
+                    
+
+                    <form method="GET" action="{% url 'catalogo' %}#seccion-productos" class="d-flex" role="search" style="max-width: 300px; width: 100%;">  
+                        <input class="form-control me-2" type="search" name="q" placeholder="Buscar producto..." value="{{ request.GET.q }}">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ventana del Mensaje Emergente (Modal Reto) -->
+    <div id="modal-mensaje" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center;">
+      <div class="modal-content bg-white p-4 rounded shadow text-center" style="max-width:400px; position:relative;">
+        <span class="btn-cerrar" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:1.5rem;">&times;</span>
+        <div class="modal-icon fs-1">🥗</div>
+        <h3 class="fw-bold text-success mt-2">¡Únete a nuestro gran reto!</h3>
+        <p class="text-muted">Únete a nuestro gran reto de peso saludable. Pide más información en el botón de WhatsApp o en el apartado de contacto.</p>
+        <div class="modal-actions mt-3">
+          <a href="https://wa.me/526647670709?text=Hola,%20me%20gustaría%20recibir%20más%20información%20sobre%20el%20reto%20de%20peso%20saludable" 
+             target="_blank" 
+             class="btn btn-success w-100">
+             Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="container py-5">
+        <!-- Migas de pan (Breadcrumb) -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'catalogo' %}" class="text-success text-decoration-none">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cliente Preferente</li>
+            </ol>
+        </nav>
+
+        <!-- Tarjeta principal de contenido -->
+        <div class="card shadow-sm border-0 rounded-4 p-4 p-md-5 bg-white">
+            
+            <!-- Metadatos / Actualización -->
+            <div class="mb-4 pb-3 border-bottom text-muted small">
+                <i class="bi bi-calendar3 me-1"></i> Última actualización: 09 de noviembre de 2026 &nbsp;|&nbsp; 
+                <i class="bi bi-person-badge me-1"></i> Por Patricia Aguilar Valenzuela, Distribuidora Independiente Herbalife
+            </div>
+
+            <!-- Título principal -->
+            <h1 class="h2 fw-bold text-success mb-4">Descubre el Programa Cliente Preferente Herbalife</h1>
+
+            <!-- Párrafo descriptivo -->
+            <p class="lead text-secondary mb-4" style="font-size: 1.1rem; line-height: 1.7;">
+                La membresía de Cliente Preferente Herbalife México tiene un costo único de inscripción de <strong>$230.86 MXN</strong> y da acceso inmediato a descuentos de hasta <strong>35%</strong> en productos, sin obligación de compra mensual. Regístrate hoy y empieza a comprar directo a Herbalife con envío sin costo adicional.
+            </p>
+
+            <!-- Sección de Llamado a la Acción (CTA) -->
+            <div class="p-4 mb-5 rounded-3 bg-success bg-opacity-10 border border-success border-opacity-25 text-center">
+                <h3 class="h4 fw-bold text-success mb-2">¡Regístrate Ahora!</h3>
+                <p class="text-muted mb-3">Conoce los beneficios exclusivos del programa en pocos minutos.</p>
+                <a href="https://wa.me/526647670709?text=Hola,%20me%20interesa%20registrarme%20como%20Cliente%20Preferente" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-lg px-4 py-2 shadow-sm">
+                    <i class="bi bi-whatsapp me-2"></i> Iniciar Registro por WhatsApp
+                </a>
+            </div>
+
+            <!-- Siguiente sección -->
+            <div class="mt-4">
+                <h2 class="h4 fw-bold text-dark mb-3">¿Qué es el Cliente Preferente Herbalife?</h2>
+                <p class="text-secondary">
+                   El programa Cliente Preferente de Herbalife es perfecto para quienes disfrutan de los productos de nutrición Herbalife y quieren comprarlos con descuentos exclusivos, sin involucrarse en el negocio de distribución. Únete con un costo único de registro de $230.86 MXN y accede a una experiencia de compra única: descuentos de hasta un 35%, promociones especiales, envíos sin costo, la posibilidad de comprar directamente a Herbalife sin intermediarios (ya sea por internet o teléfono), y una plataforma virtual exclusiva con recetas y rutinas personalizadas.
+                   Sin obligaciones mensuales de compra o venta, ni necesidad de asistir a reuniones o entrenamientos, es la forma ideal de disfrutar de tus batidos, tés y suplementos favoritos a precios preferenciales con total libertad.
+                </p>
+                <div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h3 class="h5 fw-bold text-success mb-3">Conoce más en video</h3>
+            
+            <!-- Contenedor responsivo de YouTube (Ratio 16:9) -->
+            <div class="ratio ratio-16x9 shadow-sm rounded-4 overflow-hidden">
+             <iframe src="https://www.youtube.com/embed/O5MYM49vRqk?start=7" 
+              title="Video de YouTube" 
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+             allowfullscreen>
+             </iframe>
+           </div>
+            </div>
+            <!-- Niveles de Descuento Section -->
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-success">Niveles de Descuento: Bronce, Plata, Oro</h2>
+        <p class="text-secondary">Tus compras acumulan puntos que desbloquean mayores descuentos:</p>
+        <hr class="w-25 mx-auto border-success opacity-75">
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        
+        <!-- Nivel Bronce -->
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4 p-3 text-center">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Nivel Bronce</span>
+                    <h3 class="h4 fw-bold text-success mb-3">Nivel Bronce (15%)</h3>
+                    <p class="text-secondary small mb-4">
+                        Comienza con un 15% de descuento. Acumula 100 puntos para pasar a Plata.
+                    </p>
+                    <div class="mt-auto text-muted small bg-light p-3 rounded-3 w-100">
+                        <strong>Programa Desayuno Ideal</strong><br>
+                        <span class="text-success fw-semibold">3 productos = 90.2 puntos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nivel Plata (Destacado) -->
+        <div class="col">
+            <div class="card h-100 shadow border-success border-2 rounded-4 p-3 text-center position-relative">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <span class="badge bg-secondary mb-3 px-3 py-2 rounded-pill fw-bold">Nivel Plata</span>
+                    <h3 class="h4 fw-bold text-success mb-3">Nivel Plata (25%)</h3>
+                    <p class="text-secondary small mb-4">
+                        Alcanza 100 puntos y disfruta de un 25% de descuento en todas tus compras.
+                    </p>
+                    <div class="mt-auto text-muted small bg-light p-3 rounded-3 w-100">
+                        <strong>Desayuno Ideal + TAF</strong><br>
+                        <span class="text-success fw-semibold">4 productos = 114.85 puntos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nivel Oro -->
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4 p-3 text-center">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Nivel Oro</span>
+                    <h3 class="h4 fw-bold text-success mb-3">Nivel Oro (35%)</h3>
+                    <p class="text-secondary small mb-4">
+                        Con 500 puntos, obtén un 35% de descuento. Compra un pack de 500 puntos para llegar rápido.
+                    </p>
+                    <div class="mt-auto text-muted small bg-light p-3 rounded-3 w-100">
+                        <strong>4 Programas + TAF Proteico</strong><br>
+                        <span class="text-success fw-semibold">Total = 536.6 puntos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

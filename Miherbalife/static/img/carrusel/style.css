@@ -1,0 +1,364 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Estilo general para los enlaces del varmenu (Evita que se pongan azules o subrayados) */
+.varmenu a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Fondo oscuro translúcido */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Caja principal del mensaje */
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px 25px;
+  border-radius: 16px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+
+.modal-content p {
+  color: #555555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Botón para cerrar (X) */
+.btn-cerrar {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-cerrar:hover {
+  color: #333;
+}
+
+/* Botones de Acción */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-whatsapp {
+  display: block;
+  background-color: #25D366;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1eb857;
+}
+
+.btn-contacto {
+  display: block;
+  background-color: #f1f3f5;
+  color: #333333;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-contacto:hover {
+  background-color: #e9ecef;
+}
+
+/* Animación */
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.menu-card {
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.carrusel-efecto {
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.carrusel-efecto:hover {
+    transform: translateY(-6px);
+}
+
+  /* Barra Superior */
+  .hn-top-bar {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      font-size: 0.9rem;
+      padding: 8px 0;
+  }
+  .hn-top-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+  .hn-tb-name {
+      color: #333;
+  }
+  .hn-tb-role {
+      color: #6c757d;
+  }
+  .hn-tb-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+  .hn-country-select {
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #ced4da;
+      background-color: white;
+      font-size: 0.85rem;
+  }
+  /* Botón de WhatsApp compacto para la barra */
+  .hn-btn-wsp {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #25d366;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: background-color 0.2s;
+  }
+  .hn-btn-wsp:hover {
+      background-color: #1ebe5d;
+      color: white;
+  }
+  
+  /* Ajuste para celulares */
+  @media (max-width: 768px) {
+      .hn-top-inner {
+          flex-direction: column;
+          text-align: center;
+      }
+      .hn-tb-actions {
+          width: 100%;
+          justify-content: center;
+      }
+  }
+
+.hero-banner {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden; /* Oculta lo que sobresalga del video */
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos para que el iframe de YouTube cubra todo el fondo */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none; /* Evita que el usuario haga clic en el video */
+        }
+
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 56.25vw; /* Relación 16:9 */
+            min-height: 100vh;
+            min-width: 177.77vh;
+        }
+
+        /* Capa oscura semitransparente para que el texto se lea bien sobre el video */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Oscurece un 50% */
+            z-index: 2;
+        }
+
+        /* Caja de contenido (textos y botones) */
+        .hero-content {
+            position: relative;
+            z-index: 3; /* Asegura que esté por encima del video y la capa oscura */
+            max-width: 650px;
+            padding-left: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: #83d01a;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+
+        /* Botones */
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .btn-catalog {
+            background-color: #83d01a;
+            color: #000000;
+        }
+
+.btn-whatsapp {
+            background-color: #25d366;
+            color: #ffffff;
+        }
+
+        /* Footer con datos de la distribuidora */
+.hero-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #cccccc;
+        }
+
+.hero-footer img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+.hero-footer a {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Evita que interfiera con clics o botones */
+    overflow: hidden;
+}
+
+.bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+
+/* Estilo base uniforme para todos los enlaces del menú */
+.navbar-nav .nav-link {
+    color: #0d3b50 !important;
+    padding: 8px 16px !important;
+    border-radius: 20px;
+    transition: all 0.25s ease-in-out !important;
+    background-color: transparent;
+}
+
+/* Efecto HOVER y FOCUS unificado para TODOS los ítems */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.show {
+    color: #198754 !important; /* Verde Herbalife */
+    background-color: rgba(25, 135, 84, 0.08) !important; /* Fondo verde sutil */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important; /* Sombreado suave */
+    transform: translateY(-1px);
+}
+
+/* Mantener el diseño limpio en los ítems dentro del desplegable */
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: rgba(25, 135, 84, 0.1) !important;
+    color: #198754 !important;
+}
+

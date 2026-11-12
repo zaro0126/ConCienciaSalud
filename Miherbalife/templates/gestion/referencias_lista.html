@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Precios y Referencias - Panel de Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-light">
+
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'dashboard_admin' %}">Admin Dashboard</a>
+            <div class="d-flex align-items-center">
+                <span class="navbar-text me-3 text-white">Hola, {{ user.username }}</span>
+                <a href="{% url 'catalogo' %}" class="btn btn-outline-light btn-sm me-2">Ver Sitio Web</a>
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Encabezado de la sección -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-file-invoice-dollar text-secondary me-2"></i> Lista de Precios y Referencias (Privado)</h2>
+            <div>
+                <a href="{% url 'agregar_referencia' %}" class="btn btn-dark"><i class="fas fa-plus me-1"></i> Subir Nueva Referencia</a>
+                <a href="{% url 'dashboard_admin' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Volver al Dashboard</a>
+            </div>
+        </div>
+
+        <!-- Tarjeta contenedora con la tabla estilizada -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="ps-4">Título del Documento</th>
+                                <th>Archivo / Vista Previa</th>
+                                <th class="text-end pe-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in elementos %}
+                            <tr>
+                                <td class="ps-4 fw-bold text-dark">{{ item.titulo }}</td>
+                                <td>
+                                    {% if item.archivo %}
+                                        <a href="{{ item.archivo.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye me-1"></i> Ver / Descargar Archivo
+                                        </a>
+                                    {% else %}
+                                        <span class="text-muted">Sin archivo</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end pe-4">
+                                    <!-- Botón de Editar -->
+                                    <a href="{% url 'editar_referencia' item.id %}" class="btn btn-sm btn-primary me-1">
+                                        <i class="fas fa-edit me-1"></i> Editar
+                                    </a>
+
+                                    <!-- Botón de Eliminar -->
+                                    <form action="{% url 'eliminar_referencia' item.id %}" method="post" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar este documento de referencia?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash-alt me-1"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">
+                                    <i class="fas fa-folder-open fa-2x mb-2 d-block text-secondary"></i>
+                                    No hay documentos de referencia guardados todavía.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

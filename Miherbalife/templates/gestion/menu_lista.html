@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión - Menú del Día</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Gestión de Menú del Día</h2>
+            <div>
+                <a href="{% url 'agregar_menu' %}" class="btn btn-success">Agregar Elemento</a>
+                <a href="{% url 'dashboard_admin' %}" class="btn btn-outline-secondary">Volver al Dashboard</a>
+            </div>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Disponible</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in elementos %}
+                        <tr>
+                            <td>{{ item.nombre }}</td>
+                            <td>${{ item.precio }}</td>
+                            <td>{% if item.disponible %}<span class="badge bg-success">Sí</span>{% else %}<span class="badge bg-secondary">No</span>{% endif %}</td>
+                            <td>
+                                <a href="{% url 'editar_menu' item.id %}" class="btn btn-sm btn-primary">Editar</a>
+                                <a href="{% url 'eliminar_menu' item.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="4" class="text-center text-muted">No hay elementos en el menú.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

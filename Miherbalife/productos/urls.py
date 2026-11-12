@@ -1,0 +1,46 @@
+from django.urls import path
+from . import views
+from .views import CustomLoginView
+from django.contrib.auth.views import LogoutView
+
+
+urlpatterns = [
+    path('', views.index, name='catalogo'),
+    path('categoria/<slug:categoria_slug>/', views.index, name='categoria_productos'),
+    path('carrito/agregar/<str:tipo>/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+    path('carrito/eliminar/<str:clave>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
+    path('carrito/', views.ver_carrito, name='ver_carrito'),
+    path('carrito/sumar/<str:clave>/', views.sumar_al_carrito, name='sumar_al_carrito'),
+    path('carrito/restar/<str:clave>/', views.restar_del_carrito, name='restar_del_carrito'),
+    path('carrito/vaciar/', views.vaciar_carrito, name='vaciar_carrito'),
+    path('negocio/', views.negocio, name='negocio'),
+    path('menuDia/', views.menuDia, name='menuDia'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(next_page='catalogo'), name='logout'),
+    path('gestion/productos/', views.gestionar_productos, name='gestionar_productos'),
+    path('gestion/productos/agregar/', views.agregar_producto, name='agregar_producto'),
+    path('gestion/productos/editar/<int:pk>/', views.editar_producto, name='editar_producto'),
+    path('gestion/productos/eliminar/<int:pk>/', views.eliminar_producto, name='eliminar_producto'),
+    path('gestion/menu/', views.gestionar_menu, name='gestionar_menu'),
+    path('gestion/menu/agregar/', views.agregar_menu, name='agregar_menu'),
+    path('gestion/menu/editar/<int:pk>/', views.editar_menu, name='editar_menu'),
+    path('gestion/menu/eliminar/<int:pk>/', views.eliminar_menu, name='eliminar_menu'),
+    path('gestion/carrusel/', views.gestionar_carrusel, name='gestionar_carrusel'),
+    path('gestion/carrusel/agregar/', views.agregar_carrusel, name='agregar_carrusel'),
+    path('gestion/carrusel/editar/<int:pk>/', views.editar_carrusel, name='editar_carrusel'),
+    path('gestion/carrusel/eliminar/<int:pk>/', views.eliminar_carrusel, name='eliminar_carrusel'),
+    path('gestion/banners/', views.gestionar_banners, name='gestionar_banners'),
+    path('gestion/banners/agregar/', views.agregar_banner, name='agregar_banner'),
+    path('gestion/banners/editar/<int:pk>/', views.editar_banner, name='editar_banner'),
+    path('gestion/banners/eliminar/<int:pk>/', views.eliminar_banner, name='eliminar_banner'),
+    path('gestion/', views.dashboard_admin, name='dashboard_admin'),
+    path('gestion/referencias/', views.gestionar_referencias, name='gestionar_referencias'),
+    path('gestion/referencias/agregar/', views.agregar_referencia, name='agregar_referencia'),
+    path('gestion/referencias/eliminar/<int:pk>/', views.eliminar_referencia, name='eliminar_referencia'),
+    path('gestion/referencias/editar/<int:pk>/', views.editar_referencia, name='editar_referencia'),
+    path('cliente-preferente/', views.cliente_preferente, name='cliente_preferente'),
+    path('gestion/pedidos/', views.dashboard_pedidos, name='dashboard_pedidos'),
+    path('carrito/procesar/', views.procesar_pedido, name='procesar_pedido'),
+    path('gestion/pedidos/leido/<int:pedido_id>/', views.marcar_pedido_leido, name='marcar_pedido_leido'),
+    path('gestion/pedidos/eliminar/<int:pedido_id>/', views.eliminar_pedido, name='eliminar_pedido'),
+]
